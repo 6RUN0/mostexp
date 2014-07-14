@@ -114,12 +114,12 @@
         if(in_array($kill->getVictimAllianceID(), config::get('cfg_allianceid')) || in_array($kill->getVictimCorpID() ,config::get('cfg_corpid')) || in_array($kill->getVictimID(), config::get('cfg_pilotid')))
         {
           $kll["class"] = "kl-loss";
-          $kll["classlink"] = '<font color="#AA0000">&bull;</font>';
+          $kll["classlink"] = '<font color="#a00">&bull;</font>';
         }
         else
         {
           $kll["class"] = "kl-kill";
-          $kll["classlink"] = '<font color="#00AA00">&bull;</font>';
+          $kll["classlink"] = '<font color="#0a0">&bull;</font>';
         }
         
         $kills[] = $kll;
@@ -166,12 +166,12 @@
         if(in_array($pod->getVictimAllianceID(), config::get('cfg_allianceid')) || in_array($pod->getVictimCorpID() ,config::get('cfg_corpid')) || in_array($pod->getVictimID(), config::get('cfg_pilotid')))  
         {
           $pll["class"] = "kl-loss";
-          $pll["classlink"] = '<font color="#AA0000">&bull;</font>';
+          $pll["classlink"] = '<font color="#a00">&bull;</font>';
         }
         else
         {
           $pll["class"] = "kl-kill";
-          $pll["classlink"] = '<font color="#00AA00">&bull;</font>';
+          $pll["classlink"] = '<font color="#0a0">&bull;</font>';
         }
 
         $pods[] = $pll;

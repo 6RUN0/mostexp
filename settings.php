@@ -4,7 +4,7 @@
   require_once("common/admin/admin_menu.php");
   $module = "Most Expensive Kills";
   $page = new Page("$module");
-  $version = "1.4";
+  $version = "1.4p1";
   $versiondb = config::get('mostexp_ver');
   $display = config::get('mostexp_display');
   if ($version != $versiondb)
@@ -201,7 +201,7 @@ HTML;
   </table>
   </form>
 HTML;
-  $html .= "<div style=\"padding: 5px; margin: 20px 10px 10px; text-align: right; border-top: 1px solid #ccc\">$module $version by <a href=\"http://babylonknights.com/\">Khi3l</a>.</div>";
+  $html .= "<div style=\"padding: 5px; margin: 20px 10px 10px; text-align: right; border-top: 1px solid #ccc\">$module $version by <a href=\"http://babylonknights.com/\">Khi3l</a>. Patched by Boris Blade Artrald.</div>";
   $page->setContent($html);
   $page->addContext($menubox->generate());
   $page->generate();

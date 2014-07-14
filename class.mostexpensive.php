@@ -111,17 +111,7 @@
 					$kll["isklost"] = number_format($kill->getISKLoss(), 0, ".",",");
 				}
 				
-				if (config::get("mostexp_allianceid") && $kill->getVictimAllianceID() == config::get("mostexp_allianceid"))
-				{
-					$kll["class"] = "kl-loss";
-					$kll["classlink"] = '<font color="#AA0000">&bull;</font>';
-				}
-				elseif (config::get("mostexp_corpid") && $kill->getVictimCorpID() == config::get("mostexp_corpid"))
-				{
-					$kll["class"] = "kl-loss";
-					$kll["classlink"] = '<font color=\"#AA0000\">&bull;</font>';
-				}
-				elseif (config::get("mostexp_pilotid") && $kill->getVictimID() == config::get("mostexp_pilotid"))
+        if(in_array($kill->getVictimAllianceID(), config::get('cfg_allianceid')) || in_array($kill->getVictimCorpID() ,config::get('cfg_corpid')) || in_array($kill->getVictimID(), config::get('cfg_pilotid')))
 				{
 					$kll["class"] = "kl-loss";
 					$kll["classlink"] = '<font color="#AA0000">&bull;</font>';
@@ -172,18 +162,8 @@
 				{
 					$pll["isklost"] = number_format($pod->getISKLoss(), 0, ".",",");
 				}
-				
-				if (config::get("mostexp_allianceid") && $pod->getVictimAllianceID() == config::get("mostexp_allianceid"))
-				{
-					$pll["class"] = "kl-loss";
-					$pll["classlink"] = '<font color="#AA0000">&bull;</font>';
-				}
-				elseif (config::get("mostexp_corpid") && $pod->getVictimCorpID() == config::get("mostexp_corpid"))
-				{
-					$pll["class"] = "kl-loss";
-					$pll["classlink"] = '<font color="#AA0000">&bull;</font>';
-				}
-				elseif (config::get("mostexp_pilotid") && $pod->getVictimID() == config::get("mostexp_pilotid"))
+	      
+        if(in_array($pod->getVictimAllianceID(), config::get('cfg_allianceid')) || in_array($pod->getVictimCorpID() ,config::get('cfg_corpid')) || in_array($pod->getVictimID(), config::get('cfg_pilotid')))	
 				{
 					$pll["class"] = "kl-loss";
 					$pll["classlink"] = '<font color="#AA0000">&bull;</font>';

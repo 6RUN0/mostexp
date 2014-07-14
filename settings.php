@@ -18,9 +18,6 @@
       config::set("mostexp_period_pods", "7");
       config::set("mostexp_count", "5");
       config::set("mostexp_count_pods", "5");
-      config::set("mostexp_allianceid", "0");
-      config::set("mostexp_corpid", "0");
-      config::set("mostexp_pilotid", "0");
       $html .= "<div><strong>Version Updated!</strong></div>";
   }
   if (empty($display))
@@ -33,9 +30,6 @@
       config::set("mostexp_period_pods", "7");
       config::set("mostexp_count", "5");
       config::set("mostexp_count_pods", "5");
-      config::set("mostexp_allianceid", "0");
-      config::set("mostexp_corpid", "0");
-      config::set("mostexp_pilotid", "0");
       $html .= "<div><strong><em>First run</em>. Loaded default values!</strong></div>";
   }
   if ($_SERVER['REQUEST_METHOD'] == "POST")
@@ -59,9 +53,6 @@
       config::set("mostexp_period_pods", $periodpods);
       config::set("mostexp_count", $count);
       config::set("mostexp_count_pods", $countpods);
-      config::set("mostexp_allianceid", $allianceid);
-      config::set("mostexp_corpid", $corpid);
-      config::set("mostexp_pilotid", $pilotid);
       $html .= "<div><strong>Settings Updated.</strong></div>";
   }
   
@@ -73,9 +64,6 @@
   $periodpods  = config::get("mostexp_period_pods");
   $count  = config::get("mostexp_count");
   $countpods  = config::get("mostexp_count_pods");
-  $allianceid  = config::get("mostexp_allianceid");
-  $corpid  = config::get("mostexp_corpid");
-  $pilotid  = config::get("mostexp_pilotid");
   
   $html .=<<<HTML
   <div class="block-header2">Settings</div>
@@ -96,45 +84,6 @@ HTML;
   
   $html .=<<<HTML
       </select></td>
-    </tr>
-    <tr>
-      <td width="160"></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td width="160"><strong>Alliance ID (0 if not alliance board)</strong></td>
-      <td><input type="text" name="allianceid" value="$allianceid" maxlength="80" size="4" /></td>
-    </tr>
-    <tr>
-HTML;
-  $html .=<<<HTML
-      </td>
-    </tr>
-    <tr>
-      <td width="160"></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td width="160"><strong>Corp ID (0 if not corporation board)</strong></td>
-      <td><input type="text" name="corpid" value="$corpid" maxlength="80" size="4" /></td>
-    </tr>
-    <tr>
-HTML;
-  $html .=<<<HTML
-      </td>
-    </tr>
-    <tr>
-      <td width="160"></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td width="160"><strong>Pilot ID (0 if not pilot board)</strong></td>
-      <td><input type="text" name="pilotid" value="$pilotid" maxlength="80" size="4" /></td>
-    </tr>
-    <tr>
-HTML;
-  $html .=<<<HTML
-      </td>
     </tr>
     <tr>
       <td width="160"></td>

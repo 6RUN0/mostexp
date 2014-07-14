@@ -1,0 +1,24 @@
+/* CSS Document */
+.kb-mostexpensive-header {
+	background-image: url("../img/mostexp.png");
+	background-repeat: no-repeat;
+	background-position: 0px -3px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	color: #cccccc;
+	font-size: 12px;
+	font-weight: bold;
+	padding-left: 25px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #777777;
+}
+
+a.mostexplink:link, a.mostexplink:visited, a.mostexplink:active {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+	
+a.mostexplink:hover,  {
+	color: #FFFFFF;
+	text-decoration: underline;
+}

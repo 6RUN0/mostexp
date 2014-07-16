@@ -4,7 +4,7 @@
   require_once("common/admin/admin_menu.php");
   $module = "Most Expensive Kills";
   $page = new Page("$module");
-  $version = "1.4p1";
+  $version = "1.4p2";
   $versiondb = config::get('mostexp_ver');
   $display = config::get('mostexp_display');
   if ($version != $versiondb)

@@ -1,5 +1,5 @@
 /* CSS Document */
-.kb-mostexpensive-header {
+.mostexp-header {
   background: url('../img/mostexp.png') no-repeat 0 -3px;
   border-bottom: 1px solid #777;
   color: #ccc;
@@ -9,11 +9,61 @@
   padding: 0 0 5px 25px;
 }
 
-a.mostexplink {
-  color: #fff;
-  text-decoration: none;
+.mostexp-kill {
+  color: #0a0;
 }
-  
-a.mostexplink:hover {
-  text-decoration: underline;
+
+.mostexp-loss {
+  color: #a00;
+}
+
+.mostexp-table {
+  width: 100%;
+}
+
+.mostexp-table-item {
+  border-spacing: 0;
+  width: 100%;
+}
+
+.mostexp-row {
+  cursor: pointer;
+}
+
+.mostexp-cell {
+  padding: 0 !important;
+}
+
+.mostexp-cell-img {
+  width: 64px;
+  height: 64px;
+  vertical-align: top;
+  padding: 1px;
+}
+
+.mostexp-img {
+  display: block;
+  height: 64px;
+  width: 64px;
+}
+
+.mostexp-cell-txt {
+  height: 32px;
+  text-align: center;
+}
+
+.mostexp-small {
+  font-size: .9em;
+}
+
+.mostexp-nullsec {
+  color: #ff0000;
+}
+
+.mostexp-lowsec {
+  color: #ffa500;
+}
+
+.mostexp-highsec {
+  color: #008000;
 }

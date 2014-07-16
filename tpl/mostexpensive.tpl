@@ -13,7 +13,7 @@ function swap(s,w) {
 {if $killlist}
 <table class="kb-table mostexp-table">
   <tr class="kb-table-header"> {foreach from=$killlist item=k}
-    <td align="center" width="{$width}%" class="kb-table-cell">{$k.classlink}&nbsp;<a href="{$k.victimdetails}">{$k.victim}</a></td>
+    <td align="center" width="{$width}%" class="kb-table-cell">{$k.classlink}&nbsp;<a class="kb-shipclass" href="{$k.victimdetails}">{$k.victim}</a></td>
     {/foreach} </tr>
   <tr class="mostexp-row"> {foreach from=$killlist item=k}
     <td class="kb-table-cell mostexp-cell" onmouseover="javascript:swap('name-{$k.id}-ship','kb-table-row-hover','name-{$k.id}-sys','kb-table-row-hover');" onmouseout="javascript:swap('name-{$k.id}-ship','kb-table-row-odd','name-{$k.id}-sys','kb-table-row-even');" onclick="window.location.href='?a=kill_detail&amp;kll_id={$k.id}';"><table class="mostexp-table-item">
@@ -47,7 +47,7 @@ function swap(s,w) {
 {if $podlist}
 <table class="kb-table mostexp-table">
   <tr class="kb-table-header"> {foreach from=$podlist item=p}
-    <td align="center" width="{$widthpods}%" class="kb-table-cell">{$p.classlink}&nbsp;<a href="{$p.victimdetails}">{$p.victim}</a></td>
+    <td align="center" width="{$widthpods}%" class="kb-table-cell">{$p.classlink}&nbsp;<a class="kb-shipclass" href="{$p.victimdetails}">{$p.victim}</a></td>
     {/foreach} </tr>
   <tr class="mostexp-row"> {foreach from=$podlist item=p}
     <td class="kb-table-cell mostexp-cell" onmouseover="javascript:swap('name-{$p.id}-ship','kb-table-row-hover','name-{$p.id}-sys','kb-table-row-hover');" onmouseout="javascript:swap('name-{$p.id}-ship','kb-table-row-odd','name-{$p.id}-sys','kb-table-row-even');" onclick="window.location.href='?a=kill_detail&amp;kll_id={$p.id}';"><table class="mostexp-table-item">

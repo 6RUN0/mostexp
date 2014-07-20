@@ -44,6 +44,7 @@
 .mostexp-img {
   display: block;
   height: 64px;
+  overflow: hidden;
   width: 64px;
 }
 

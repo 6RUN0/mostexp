@@ -86,7 +86,7 @@
       $smarty->assign('widthpods', 100/$mostexp_count_pods);
       $smarty->assign('podlist', self::getKills($plist));
 
-      return $smarty->fetch(getcwd() . '/mods/mostexp/tpl/mostexpensive.tpl');
+      return $smarty->fetch(get_tpl('./mods/mostexp/tpl/mostexpensive'));
 
     }
     public static function setTime($week = 0, $year = 0, $month = 0)
@@ -140,6 +140,7 @@
           $kll['system'] = $kill->getSolarSystemName();
         }
         $kll['id'] = $kill->getID();
+        $kll['kill_detail'] = edkURI::page('kill_detail',  $kll['id'], 'kll_id');
         $kll['victim'] = $kill->getVictimName();
         $kll['victimid'] = $kill->getVictimID();
         $kll['victimimage'] = $plt->getPortraitURL(64);

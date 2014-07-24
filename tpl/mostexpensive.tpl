@@ -16,7 +16,7 @@ function swap(s,w) {
     <td align="center" width="{$width}%" class="kb-table-cell">{$k.classlink}&nbsp;<a class="kb-shipclass" href="{$k.victimdetails}">{$k.victim}</a></td>
     {/foreach} </tr>
   <tr class="mostexp-row"> {foreach from=$killlist item=k}
-    <td class="kb-table-cell mostexp-cell" onmouseover="javascript:swap('name-{$k.id}-ship','kb-table-row-hover','name-{$k.id}-sys','kb-table-row-hover');" onmouseout="javascript:swap('name-{$k.id}-ship','kb-table-row-odd','name-{$k.id}-sys','kb-table-row-even');" onclick="window.location.href='?a=kill_detail&amp;kll_id={$k.id}';"><table class="mostexp-table-item">
+    <td class="kb-table-cell mostexp-cell" onmouseover="javascript:swap('name-{$k.id}-ship','kb-table-row-hover','name-{$k.id}-sys','kb-table-row-hover');" onmouseout="javascript:swap('name-{$k.id}-ship','kb-table-row-odd','name-{$k.id}-sys','kb-table-row-even');" onclick="window.location.href='{$k.kill_detail}';"><table class="mostexp-table-item">
         <tr class="kb-table-row-odd" id="name-{$k.id}-ship">
           <td class="mostexp-cell-img" rowspan="2"><img class="mostexp-img" src="{$k.victimshipimage}" alt="{$k.victimship}"/></td>
           <td class="kb-table-cell mostexp-cell-txt" ><strong>{$k.victimship}</strong></td>
@@ -50,7 +50,7 @@ function swap(s,w) {
     <td align="center" width="{$widthpods}%" class="kb-table-cell">{$p.classlink}&nbsp;<a class="kb-shipclass" href="{$p.victimdetails}">{$p.victim}</a></td>
     {/foreach} </tr>
   <tr class="mostexp-row"> {foreach from=$podlist item=p}
-    <td class="kb-table-cell mostexp-cell" onmouseover="javascript:swap('name-{$p.id}-ship','kb-table-row-hover','name-{$p.id}-sys','kb-table-row-hover');" onmouseout="javascript:swap('name-{$p.id}-ship','kb-table-row-odd','name-{$p.id}-sys','kb-table-row-even');" onclick="window.location.href='?a=kill_detail&amp;kll_id={$p.id}';"><table class="mostexp-table-item">
+    <td class="kb-table-cell mostexp-cell" onmouseover="javascript:swap('name-{$p.id}-ship','kb-table-row-hover','name-{$p.id}-sys','kb-table-row-hover');" onmouseout="javascript:swap('name-{$p.id}-ship','kb-table-row-odd','name-{$p.id}-sys','kb-table-row-even');" onclick="window.location.href='{$p.kill_detail}';"><table class="mostexp-table-item">
         <tr class="kb-table-row-odd" id="name-{$p.id}-ship">
           <td class="mostexp-cell-img" rowspan="2"><img class="mostexp-img" src="{$p.victimimage}" alt="{$p.victim}"/></td>
           <td class="kb-table-cell mostexp-cell-txt"><strong>{$p.victimship|truncate:20}</strong></td>

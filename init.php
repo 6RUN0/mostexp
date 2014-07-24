@@ -19,6 +19,6 @@ class init_mostexpensive
   }
   public static function headers($home)
   {
-    $home->page->addHeader("\t<link rel=\"stylesheet\" type=\"text/css\" href=\"mods/mostexp/css/mostexp.css\" />");
+    $home->page->addHeader('<link rel="stylesheet" type="text/css" href="' . config::get('cfg_kbhost') . '/mods/mostexp/css/mostexp.css" />');
   }
 }

@@ -18,7 +18,6 @@
       $show_monthly = config::get('show_monthly');
       $mostexp_count = config::get('mostexp_count');
       $mostexp_count_pods = config::get('mostexp_count_pods');
-      $mostexp_count_pods = config::get('mostexp_count_pods');
 
       $klist = new KillList();
       $klist->setOrdered(true);
@@ -35,9 +34,18 @@
       $plist->addVictimShipClass(2);
       $plist->setLimit($mostexp_count_pods);
 
-      self::$week = edkURI::getArg('w', 2);
-      self::$month = edkURI::getArg('m', 2);
-      self::$year = edkURI::getArg('y',1);
+      //var_dump(edkURI::parseURI());
+      if(edkURI::getArg('kills') || edkURI::getArg('losses')) {
+        self::$week = edkURI::getArg('w', 3);
+        self::$month = edkURI::getArg('m', 3);
+        self::$year = edkURI::getArg('y',2);
+      }
+      else {
+        self::$week = edkURI::getArg('w', 2);
+        self::$month = edkURI::getArg('m', 2);
+        self::$year = edkURI::getArg('y',1);
+      }
+
       self::setTime(self::$week, self::$year, self::$month);
 
       switch($mostexp_display)

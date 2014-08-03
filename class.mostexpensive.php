@@ -18,24 +18,27 @@
       $show_monthly = config::get('show_monthly');
       $mostexp_count = config::get('mostexp_count');
       $mostexp_count_pods = config::get('mostexp_count_pods');
+      $mostexp_count_pods = config::get('mostexp_count_pods');
 
       $klist = new KillList();
       $klist->setOrdered(true);
+      //$klist->setAPIKill(TRUE);
       $klist->setOrderBy('kll_isk_loss DESC');
       $klist->setPodsNoobShips(false);
       $klist->setLimit($mostexp_count);
 
       $plist = new KillList();
       $plist->setOrdered(true);
+      //$klist->setAPIKill(TRUE);
+
       $plist->setOrderBy('kll_isk_loss DESC');
       $plist->addVictimShipClass(2);
       $plist->setLimit($mostexp_count_pods);
 
-      if(isset($_GET['w'])) self::$week = intval($_GET['w']);
-      if(isset($_GET['m'])) self::$month = intval($_GET['m']);
-      if(isset($_GET['y'])) self::$year = intval($_GET['y']);
+      self::$week = edkURI::getArg('w', 2);
+      self::$month = edkURI::getArg('m', 2);
+      self::$year = edkURI::getArg('y',1);
       self::setTime(self::$week, self::$year, self::$month);
-      $view = preg_replace('/[^a-zA-Z0-9_-]/','',$_GET['view']);
 
       switch($mostexp_display)
       {
@@ -78,6 +81,7 @@
           $smarty->assign('displaytype', 'Kills');
           break;
       }
+
       involved::load($klist, $mostexp_what);
       involved::load($plist, $mostexp_what);
 

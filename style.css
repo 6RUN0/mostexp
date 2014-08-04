@@ -1,12 +1,7 @@
 /* CSS Document */
 .mostexp-header {
-  background: url('../img/mostexp.png') no-repeat 0 -3px;
-  border-bottom: 1px solid #777;
-  color: #ccc;
-  font-size: 12px;
-  font-weight: bold;
-  margin: 10px 0;
-  padding: 0 0 5px 25px;
+  background: url('img/mostexp.png') no-repeat 0 -3px;
+  padding-left: 25px;
 }
 
 .mostexp-kill {
@@ -21,6 +16,11 @@
   width: 100%;
 }
 
+.mostexp-table td,
+.mostexp-table th {
+  padding: 0;
+}
+
 .mostexp-table-item {
   border-spacing: 0;
   width: 100%;
@@ -30,22 +30,15 @@
   cursor: pointer;
 }
 
-.mostexp-cell {
-  padding: 0 !important;
-}
-
-.mostexp-cell-img {
-  width: 64px;
+.mostexp-cell-img,
+.mostexp-img {
   height: 64px;
-  vertical-align: top;
-  padding: 1px;
+  width: 64px;
 }
 
 .mostexp-img {
   display: block;
-  height: 64px;
   overflow: hidden;
-  width: 64px;
 }
 
 .mostexp-cell-txt {

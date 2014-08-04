@@ -1,191 +1,208 @@
 <?php
-  if(!defined('KB_SITE')) die ('Go Away!');
 
-  class mostexpensive
-  {
-    public static $week = 0;
-    public static $month = 0;
-    public static $year = 0;
+class mostexpensive {
 
-    public static function display()
-    {
-      global $smarty;
+  private static $week;
+  private static $year;
+  private static $month;
+  private static $scl_id;
+  private static $view;
 
-      $mostexp_display = config::get('mostexp_display');
-      $mostexp_what = config::get('mostexp_what');
-      $mostexp_period = config::get('mostexp_period');
-      $mostexp_period_pods = config::get('mostexp_period_pods');
-      $show_monthly = config::get('show_monthly');
-      $mostexp_count = config::get('mostexp_count');
-      $mostexp_count_pods = config::get('mostexp_count_pods');
+  private static $display;
+  private static $what;
+  private static $monthly;
+  private static $viewpods;
+  private static $show_monthly;
+  private static $period;
+  private static $period_pods;
+  private static $count;
+  private static $count_pods;
+  private static $only_verified;
 
-      $klist = new KillList();
-      $klist->setOrdered(true);
-      //$klist->setAPIKill(TRUE);
-      $klist->setOrderBy('kll_isk_loss DESC');
-      $klist->setPodsNoobShips(false);
-      $klist->setLimit($mostexp_count);
+  private static $all;
+  private static $corp;
+  private static $pilot;
 
-      $plist = new KillList();
-      $plist->setOrdered(true);
-      //$klist->setAPIKill(TRUE);
 
-      $plist->setOrderBy('kll_isk_loss DESC');
-      $plist->addVictimShipClass(2);
-      $plist->setLimit($mostexp_count_pods);
+  /**
+   *  Define self variables.
+   *  @param $pHome - pHome object, see ../../common/home.php
+   */
+  private static function define_vars($pHome) {
 
-      //var_dump(edkURI::parseURI());
-      if(edkURI::getArg('kills') || edkURI::getArg('losses')) {
-        self::$week = edkURI::getArg('w', 3);
-        self::$month = edkURI::getArg('m', 3);
-        self::$year = edkURI::getArg('y',2);
+    self::$week = $pHome->getWeek();
+    self::$year = $pHome->getYear();
+    self::$month = $pHome->getMonth();
+    self::$scl_id = edkURI::getArg('scl_id');
+    self::$view = $pHome->getView();
+
+    self::$display = config::get('mostexp_display');
+    self::$what = config::get('mostexp_what');
+    self::$monthly = config::get('show_monthly');
+    self::$viewpods = config::get('mostexp_viewpods');
+    self::$period = config::get('mostexp_period');
+    self::$period_pods = config::get('mostexp_period_pods');
+    self::$count = config::get('mostexp_count');
+    self::$count_pods = config::get('mostexp_count_pods');
+    self::$only_verified = config::get('mostexp_only_verified');
+
+    self::$all = config::get('cfg_allianceid');
+    self::$corp = config::get('cfg_corpid');
+    self::$pilot = config::get('cfg_pilotid');
+
+  }
+
+  /**
+   *  Display most extensive kills.
+   *  @param $pHome - pHome object, see ../../common/home.php
+   *  @return string, html markup
+   */
+  public static function display($pHome) {
+
+    self::define_vars($pHome);
+
+    $result = '';
+    $result .= self::render_tpl(self::$period, self::$count);
+    if(self::$viewpods == 'yes') {
+      $result .= self::render_tpl(self::$period_pods, self::$count_pods, TRUE);
+    }
+
+    return $result;
+
+  }
+
+  /**
+   *  Rendering template 'mostexpensive.tpl'.
+   *  @param $period, period of kills
+   *  @param $count, count of kills
+   *  @return string, html markup
+   */
+  private static function render_tpl($period, $count, $pod = FALSE) {
+
+    global $smarty;
+
+    $klist = new KillList();
+    $klist->setOrdered(true);
+    $klist->setOrderBy('kll_isk_loss DESC');
+    if(self::$only_verified == 'yes') {
+      $klist->setAPIKill(TRUE);
+    }
+    $prefix = '';
+    if($pod) {
+      self::$scl_id = 2;
+      $prefix = 'Pod ';
+    }
+    // If capsule or shuttle
+    if(self::$scl_id == 2 || self::$scl_id == 11) {
+      $pod = TRUE;
+    }
+    if(self::$scl_id) {
+      $klist->addVictimShipClass(self::$scl_id);
+    }
+    $klist->setPodsNoobShips($pod);
+    $klist->setLimit($count);
+
+    switch(self::$display) {
+
+      case 'days':
+        $klist->setStartDate(date('Y-m-d H:i', strtotime("- ${period} days")));
+        $klist->setEndDate(date('Y-m-d H:i'));
+        $smarty->assign('displaylist', "the past ${period} days");
+      break;
+
+      default:
+        if($show_monthly) {
+          $start = makeStartDate(0, self::$year, self::$month);
+          $end = makeEndDate(0, self::$year, self::$month);
+          $klist->setStartDate(gmdate('Y-m-d H:i', $start));
+          $klist->setEndDate(gmdate('Y-m-d H:i', $end));
+          $date = date_format(date_create(self::$year . '-' . self::$month), 'F, Y');
+          $smarty->assign('displaylist', $date);
+        }
+        else {
+          $klist->setWeek(self::$week);
+          $klist->setYear(self::$year);
+          $date = 'Week ' . self::$week . ', ' .  self::$year;
+          $smarty->assign('displaylist', $date);
+        }
+      break;
+
+    }
+
+    switch(self::$view) {
+      case 'kills':
+        self::$what = 'kill';
+        break;
+      case 'losses':
+        self::$what = 'loss';
+        break;
+    }
+
+    switch(self::$what) {
+      case 'combined':
+        $smarty->assign('displaytype', "${prefix}Kills and Losses");
+        break;
+      case 'kill':
+        $smarty->assign('displaytype', "${prefix}Kills");
+        break;
+      case 'loss':
+        $smarty->assign('displaytype', "${prefix}Losses");
+        break;
+    }
+
+    involved::load($klist, self::$what);
+
+    $kills = array();
+
+    while ($kill = $klist->getKill()) {
+      $kll = array();
+      $plt = new Pilot($kill->getVictimID());
+      if ($kill->isClassified() && !Session::isAdmin()) {
+        $kll['systemsecurity'] = '-';
+        $kll['system'] = Language::get('classified');
       }
       else {
-        self::$week = edkURI::getArg('w', 2);
-        self::$month = edkURI::getArg('m', 2);
-        self::$year = edkURI::getArg('y',1);
+        $kll['systemsecurity'] = $kill->getSolarSystemSecurity();
+        $kll['system'] = $kill->getSolarSystemName();
+      }
+      $kll['id'] = $kill->getID();
+      $kll['kill_detail'] = edkURI::page('kill_detail',  $kll['id'], 'kll_id');
+      $kll['name'] = $kill->getVictimName();
+      $kll['details'] = $plt->getDetailsURL();
+      $kll['shipname'] = $kill->getVictimShipName();
+      $isk_loss = $kill->getISKLoss();
+      if(self::$scl_id == 2) {
+        $kll['img'] = '<img class="mostexp-img" src="' . $plt->getPortraitURL(64) . '" alt="' . $kll['name'] . '"/>';
+      }
+      else {
+        $kll['img'] = '<img class="mostexp-img" src="' . $kill->getVictimShipImage(64) . '" alt="' . $kll['shipname'] . '"/>';
+      }
+      if ($isk_loss > 1000000000) {
+        $kll['isklost'] = number_format($isk_loss/1000000000, 2, '.','') . ' Billion';
+      }
+      elseif ($isk_loss > 1000000) {
+        $kll['isklost'] = number_format($isk_loss/1000000, 2, '.','') . ' Million';
+      }
+      else {
+        $kll['isklost'] = number_format($isk_loss, 0, '.',',');
       }
 
-      self::setTime(self::$week, self::$year, self::$month);
-
-      switch($mostexp_display)
-      {
-        case 'days':
-          $klist->setStartDate(date('Y-m-d H:i', strtotime("- ${mostexp_period} days")));
-          $klist->setEndDate(date('Y-m-d H:i'));
-          $plist->setStartDate(date('Y-m-d H:i', strtotime("- ${mostexp_period_pods} days")));
-          $plist->setEndDate(date('Y-m-d H:i'));
-          $smarty->assign('displaylist', "the past ${mostexp_period} days");
-          $smarty->assign('displaylistpods', "the past ${mostexp_period_pods} days");
-        break;
-        default:
-          if($show_monthly)
-          {
-            $start = makeStartDate(0, self::$year, self::$month);
-            $end = makeEndDate(0, self::$year, self::$month);
-            $klist->setStartDate(gmdate('Y-m-d H:i',$start));
-            $klist->setEndDate(gmdate('Y-m-d H:i',$end));
-            $plist->setStartDate(gmdate('Y-m-d H:i',$start));
-            $plist->setEndDate(gmdate('Y-m-d H:i',$end));
-            $smarty->assign('displaylist', date('F', mktime(0,0,0,self::$month, 1,self::$year)) . ', ' . self::$year);
-            $smarty->assign('displaylistpods', date('F', mktime(0,0,0,self::$month, 1,self::$year)) . ', ' . self::$year); 
-          }
-          else
-          {
-            $klist->setWeek(self::$week);
-            $klist->setYear(self::$year);
-            $plist->setWeek(self::$week);
-            $plist->setYear(self::$year);
-            $smarty->assign('displaylist', 'Week ' . self::$week . ', ' . self::$year);
-            $smarty->assign('displaylistpods', 'Week ' . self::$week . ', ' . self::$year);
-          }
-        break;
+      if(in_array($kill->getVictimAllianceID(), self::$all) || in_array($kill->getVictimCorpID(), self::$corp) || in_array($kill->getVictimID(), self::$pilot)) {
+        $kll['class'] = 'kl-loss';
+        $kll['classlink'] = '<span class="mostexp-loss">&bull;</span>';
       }
-      switch($mostexp_what) {
-        case 'combined':
-          $smarty->assign('displaytype', 'Kills and Losses');
-          break;
-        case 'kill':
-          $smarty->assign('displaytype', 'Kills');
-          break;
+      else {
+        $kll['class'] = 'kl-kill';
+        $kll['classlink'] = '<span class="mostexp-kill">&bull;</span>';
       }
 
-      involved::load($klist, $mostexp_what);
-      involved::load($plist, $mostexp_what);
-
-      $smarty->assign('killlist', self::getKills($klist));
-      $smarty->assign('width', 100/$mostexp_count);
-      $smarty->assign('widthpods', 100/$mostexp_count_pods);
-      $smarty->assign('podlist', self::getKills($plist));
-
-      return $smarty->fetch(get_tpl('./mods/mostexp/tpl/mostexpensive'));
-
-    }
-    public static function setTime($week = 0, $year = 0, $month = 0)
-    {
-      if ($week)
-      {
-        $w = $week;
-      }
-      else
-      {
-        $w = (int) kbdate('W');
-      }
-      if ($month)
-      {
-        $m = $month;
-      }
-      else
-      {
-        $m = (int) kbdate('m');
-      }
-      if ($year)
-      {
-        $y = $year;
-      }
-      else
-      {
-        $y = (int) kbdate('o');
-      }
-      if ($m < 10) $m = '0' . $m;
-      if ($w < 10) $w = '0' . $w;
-      self::$year = $y;
-      self::$month = $m;
-      self::$week = $w;
+      $kills[] = $kll;
     }
 
-    private function getKills($killList) {
-      $allianceIDs = config::get('cfg_allianceid');
-      $corpIDs = config::get('cfg_corpid');
-      $pilotIDs = config::get('cfg_pilotid');
-      $kills = array();
+    $smarty->assign('killlist', $kills);
+    $smarty->assign('width', 100/$count);
+    return $smarty->fetch(get_tpl('./mods/mostexp/mostexpensive'));
 
-      while ($kill = $killList->getKill()) {
-        $kll = array();
-        $plt = new Pilot($kill->getVictimID());
-        if ($kill->isClassified() && !Session::isAdmin()) {
-          $kll['systemsecurity'] = '-';
-          $kll['system'] = Language::get('classified');
-        }
-        else {
-          $kll['systemsecurity'] = $kill->getSolarSystemSecurity();
-          $kll['system'] = $kill->getSolarSystemName();
-        }
-        $kll['id'] = $kill->getID();
-        $kll['kill_detail'] = edkURI::page('kill_detail',  $kll['id'], 'kll_id');
-        $kll['victim'] = $kill->getVictimName();
-        $kll['victimid'] = $kill->getVictimID();
-        $kll['victimimage'] = $plt->getPortraitURL(64);
-        $kll['victimdetails'] = $plt->getDetailsURL();
-        $kll['victimship'] = $kill->getVictimShipName();
-        $kll['victimshipid'] = $kill->getVictimShipExternalID();
-        $kll['victimshipimage'] = $kill->getVictimShipImage(64);
-        $kll['victimshipclass'] = $kill->getVictimShipClassName();
-        $kll['victimcorp'] = $kill->getVictimCorpName();
-        $kll['victimcorpid'] = $kill->getVictimCorpID();
-
-        if ((int) number_format($kill->getISKLoss(), 0, '','')>1000000000) {
-          $kll['isklost'] = number_format($kill->getISKLoss()/1000000000, 2, '.','') . ' Billion';
-        }
-        elseif ((int) number_format($kill->getISKLoss(), 0, '','')>1000000) {
-          $kll['isklost'] = number_format($kill->getISKLoss()/1000000, 2, '.','') . ' Million';
-        }
-        else {
-          $kll['isklost'] = number_format($kill->getISKLoss(), 0, '.',',');
-        }
-
-        if(in_array($kill->getVictimAllianceID(), $allianceIDs) || in_array($kill->getVictimCorpID(), $corpIDs) || in_array($kill->getVictimID(), $pilotIDs)) {
-          $kll['class'] = 'kl-loss';
-          $kll['classlink'] = '<span class="mostexp-loss">&bull;</span>';
-        }
-        else {
-          $kll['class'] = 'kl-kill';
-          $kll['classlink'] = '<span class="mostexp-kill">&bull;</span>';
-        }
-
-        $kills[] = $kll;
-      }
-
-      return $kills;
-    }
   }
+
+}

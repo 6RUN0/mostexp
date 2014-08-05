@@ -111,7 +111,7 @@ class mostexpensive {
       break;
 
       default:
-        if($show_monthly) {
+        if(self::$monthly) {
           $start = makeStartDate(0, self::$year, self::$month);
           $end = makeEndDate(0, self::$year, self::$month);
           $klist->setStartDate(gmdate('Y-m-d H:i', $start));

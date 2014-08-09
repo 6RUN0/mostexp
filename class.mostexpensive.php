@@ -92,8 +92,8 @@ class mostexpensive {
       self::$scl_id = 2;
       $prefix = 'Pod ';
     }
-    // If capsule or shuttle
-    if(self::$scl_id == 2 || self::$scl_id == 11) {
+    // If capsule, noob ship or shuttle
+    if(self::$scl_id == 2 || self::$scl_id == 3 || self::$scl_id == 11) {
       $pod = TRUE;
     }
     if(self::$scl_id) {
@@ -184,7 +184,7 @@ class mostexpensive {
         $kll['isklost'] = number_format($isk_loss/1000000, 2, '.','') . ' Million';
       }
       else {
-        $kll['isklost'] = number_format($isk_loss, 0, '.',',');
+        $kll['isklost'] = number_format($isk_loss, 0, '.','');
       }
 
       if(in_array($kill->getVictimAllianceID(), self::$all) || in_array($kill->getVictimCorpID(), self::$corp) || in_array($kill->getVictimID(), self::$pilot)) {

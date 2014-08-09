@@ -5,7 +5,7 @@
   <td width="{$width}%">
     <table class="mostexp-table-item"><tbody>
       <tr class="kb-table-header"><td align="center" class="kb-table-cell">
-        {$k.classlink}&nbsp;<a class="kb-shipclass" href="{$k.details}">{$k.name|truncate:20}</a>
+        {$k.classlink}&nbsp;<a class="kb-shipclass" href="{$k.details}">{$k.name|truncate:15}</a>
       </td></tr>
       <tr class="mostexp-row">
         <td class="kb-table-cell" onmouseover="javascript:swap('name-{$k.id}-ship','kb-table-row-hover','name-{$k.id}-sys','kb-table-row-hover');" onmouseout="javascript:swap('name-{$k.id}-ship','kb-table-row-odd','name-{$k.id}-sys','kb-table-row-even');" onclick="window.location.href='{$k.kill_detail}';">

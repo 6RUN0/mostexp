@@ -55,12 +55,12 @@ class pMostExpSettings extends pageAssembly {
 }
 
 $pageAssembly = new pMostExpSettings();
-event::call('pCorpTopKillersSettings_assembling', $pageAssembly);
+event::call('pMostExpSettings_assembling', $pageAssembly);
 $html = $pageAssembly->assemble();
 $pageAssembly->page->setContent($html);
 
 $pageAssembly->context();
-event::call('pCorpTopKillersSettings_context_assembling', $pageAssembly);
+event::call('pMostExpSettings_context_assembling', $pageAssembly);
 $context = $pageAssembly->assemble();
 $pageAssembly->page->addContext($context);
 

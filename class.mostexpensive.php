@@ -29,6 +29,19 @@ class mostexpensive {
     self::$view = $pHome->getView();
 
     self::$options = config::get('mostexp_options');
+    if(empty(self::$options)) {
+      self::$options = array(
+        'display' => 'board',
+        'period' => '7',
+        'count' => '5',
+        'viewpods' => 'yes',
+        'periodpods' => '7',
+        'countpods' => '5',
+        'what' => 'kill',
+        'position' => 'summaryTable',
+        'only_verified' => 'yes',
+      );
+    }
 
     self::$monthly = config::get('show_monthly');
     self::$all = config::get('cfg_allianceid');

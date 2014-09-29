@@ -8,16 +8,8 @@ class mostexpensive {
   private static $scl_id;
   private static $view;
 
-  private static $display;
-  private static $what;
+  private static $options = array();
   private static $monthly;
-  private static $viewpods;
-  private static $show_monthly;
-  private static $period;
-  private static $period_pods;
-  private static $count;
-  private static $count_pods;
-  private static $only_verified;
 
   private static $all;
   private static $corp;
@@ -36,16 +28,9 @@ class mostexpensive {
     self::$scl_id = edkURI::getArg('scl_id');
     self::$view = $pHome->getView();
 
-    self::$display = config::get('mostexp_display');
-    self::$what = config::get('mostexp_what');
-    self::$monthly = config::get('show_monthly');
-    self::$viewpods = config::get('mostexp_viewpods');
-    self::$period = config::get('mostexp_period');
-    self::$period_pods = config::get('mostexp_period_pods');
-    self::$count = config::get('mostexp_count');
-    self::$count_pods = config::get('mostexp_count_pods');
-    self::$only_verified = config::get('mostexp_only_verified');
+    self::$options = config::get('mostexp_options');
 
+    self::$monthly = config::get('show_monthly');
     self::$all = config::get('cfg_allianceid');
     self::$corp = config::get('cfg_corpid');
     self::$pilot = config::get('cfg_pilotid');
@@ -62,9 +47,9 @@ class mostexpensive {
     self::define_vars($pHome);
 
     $result = '';
-    $result .= self::render_tpl(self::$period, self::$count);
-    if(self::$viewpods == 'yes') {
-      $result .= self::render_tpl(self::$period_pods, self::$count_pods, TRUE);
+    $result .= self::render_tpl(self::$options['period'], self::$options['count']);
+    if(self::$options['viewpods'] == 'yes') {
+      $result .= self::render_tpl(self::$options['periodpods'], self::$options['countpods'], TRUE);
     }
 
     return $result;
@@ -84,7 +69,7 @@ class mostexpensive {
     $klist = new KillList();
     $klist->setOrdered(true);
     $klist->setOrderBy('kll_isk_loss DESC');
-    if(self::$only_verified == 'yes') {
+    if(self::$options['only_verified'] == 'yes') {
       $klist->setAPIKill(TRUE);
     }
     $prefix = '';
@@ -102,7 +87,7 @@ class mostexpensive {
     $klist->setPodsNoobShips($pod);
     $klist->setLimit($count);
 
-    switch(self::$display) {
+    switch(self::$options['display']) {
 
       case 'days':
         $klist->setStartDate(date('Y-m-d H:i', strtotime("- ${period} days")));
@@ -131,14 +116,14 @@ class mostexpensive {
 
     switch(self::$view) {
       case 'kills':
-        self::$what = 'kill';
+        self::$options['what'] = 'kill';
         break;
       case 'losses':
-        self::$what = 'loss';
+        self::$options['what'] = 'loss';
         break;
     }
 
-    switch(self::$what) {
+    switch(self::$options['what']) {
       case 'combined':
         $smarty->assign('displaytype', "${prefix}Kills and Losses");
         break;
@@ -150,7 +135,7 @@ class mostexpensive {
         break;
     }
 
-    involved::load($klist, self::$what);
+    involved::load($klist, self::$options['what']);
 
     $kills = array();
 
@@ -198,7 +183,6 @@ class mostexpensive {
 
       $kills[] = $kll;
     }
-
     $smarty->assign('killlist', $kills);
     $smarty->assign('width', 100/$count);
     return $smarty->fetch(get_tpl('./mods/mostexp/mostexpensive'));

@@ -12,7 +12,11 @@ Patched by <a href="https://github.com/6RUN0/">boris_t</a>.<br />
 class init_mostexpensive {
 
   public static function handler($pHome) {
-    $pHome->addBehind(config::get('mostexp_position'), 'mostexpensive::display');
+    $options = config::get('mostexp_options');
+    if(!isset($options['position'])) {
+      $options['position'] = 'summaryTable';
+    }
+    $pHome->addBehind($options['position'], 'mostexpensive::display');
     $pHome->addBehind('start', 'init_mostexpensive::headers');
   }
 

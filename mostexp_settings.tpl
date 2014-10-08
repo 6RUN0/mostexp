@@ -1,4 +1,7 @@
 <div class="block-header2">Settings</div>
+{if !empty($mostexp_msg.text)}
+  <div class="mostexp-msg">{$mostexp_msg.text}</div>
+{/if}
 <form name="settings[]" id="settings" method="post">
   <table class="kb-subtable">
     <tr>
@@ -15,7 +18,7 @@
     </tr>
     <tr>
       <td width="160"><strong>Day period</strong></td>
-      <td><input type="text" name="settings[period]" value="{$mostexp_options.period}" maxlength="80" size="4" /></td>
+      <td><input {if isset($mostexp_msg.period)}class="{$mostexp_msg.period}" {/if}type="text" name="settings[period]" value="{$mostexp_options.period}" maxlength="80" size="4" /></td>
     </tr>
     <tr>
       <td width="160"></td>
@@ -23,7 +26,7 @@
     </tr>
     <tr>
       <td width="160"><strong>Kill Count</strong></td>
-      <td><input type="text" name="settings[count]" value="{$mostexp_options.count}" maxlength="80" size="4" /></td>
+      <td><input {if isset($mostexp_msg.count)}class="{$mostexp_msg.count}" {/if}type="text" name="settings[count]" value="{$mostexp_options.count}" maxlength="80" size="4" /></td>
     </tr>
     <tr>
       <td width="160"></td>
@@ -39,7 +42,7 @@
     </tr>
     <tr>
       <td width="160"><strong>Pods Day period</strong></td>
-      <td><input type="text" name="settings[periodpods]" value="{$mostexp_options.periodpods}" maxlength="80" size="4" /></td>
+      <td><input {if isset($mostexp_msg.periodpods)}class="{$mostexp_msg.periodpods}" {/if}type="text" name="settings[periodpods]" value="{$mostexp_options.periodpods}" maxlength="80" size="4" /></td>
     </tr>
     <tr>
       <td width="160"></td>
@@ -47,7 +50,7 @@
     </tr>
     <tr>
       <td width="160"><strong>Pods Count</strong></td>
-      <td><input type="text" name="settings[countpods]" value="{$mostexp_options.countpods}" maxlength="80" size="4" /></td>
+      <td><input {if isset($mostexp_msg.countpods)}class="{$mostexp_msg.countpods}" {/if}type="text" name="settings[countpods]" value="{$mostexp_options.countpods}" maxlength="80" size="4" /></td>
     </tr>
     <tr>
       <td width="160"><strong>Kill Type</strong></td>

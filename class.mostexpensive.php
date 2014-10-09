@@ -173,7 +173,7 @@ class MostExpensive
                 $system = $kill->getSystem();
                 $kll['systemsecurity'] = $system->getSecurity();
                 $kll['system'] = $system->getName();
-                $kll['systemurl'] = edkURI::page('system_detail', $system->getExternalID(), 'sys_id');
+                $kll['systemurl'] = edkURI::page('system_detail', $system->getID(), 'sys_id');
             }
             $kll['id'] = $kill->getID();
             $kll['kill_detail'] = edkURI::page('kill_detail', $kll['id'], 'kll_id');

@@ -13,9 +13,7 @@ event::register('home_assembling', 'MostExpensiveInit::handler');
 
 $modInfo['mostexp']['name'] = 'Most Expensive Kills';
 $modInfo['mostexp']['abstract'] = '';
-$modInfo['mostexp']['about'] = 'Created by <a href="http://babylonknights.com/">Khi3l</a>.<br />
-Patched by <a href="https://github.com/6RUN0/">boris_t</a>.<br />
-<a href="https://github.com/6RUN0/mostexp">Get Most Expensive Kills</a>';
+$modInfo['mostexp']['about'] = 'Created by <a href="http://babylonknights.com/">Khi3l</a>.<br />Patched by <a href="https://github.com/6RUN0/">boris_t</a>.<br /><a href="https://github.com/6RUN0/mostexp">Get Most Expensive Kills</a>';
 
 /**
  * Provides callback for event::register.
@@ -38,7 +36,6 @@ class MostExpensiveInit
         $pHome->addBehind('start', 'MostExpensiveInit::headers');
         $pHome->addBehind($options['position'], 'MostExpensive::display');
     }
-
     /**
      * Adds styles and scripts.
      *

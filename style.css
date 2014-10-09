@@ -26,10 +26,6 @@
   width: 100%;
 }
 
-.mostexp-row {
-  cursor: pointer;
-}
-
 .mostexp-cell-img,
 .mostexp-img {
   height: 64px;

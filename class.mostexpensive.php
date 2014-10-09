@@ -170,8 +170,10 @@ class MostExpensive
                 $kll['systemsecurity'] = '-';
                 $kll['system'] = Language::get('classified');
             } else {
-                $kll['systemsecurity'] = $kill->getSolarSystemSecurity();
-                $kll['system'] = $kill->getSolarSystemName();
+                $system = $kill->getSystem();
+                $kll['systemsecurity'] = $system->getSecurity();
+                $kll['system'] = $system->getName();
+                $kll['systemurl'] = edkURI::page('system_detail', $system->getExternalID(), 'sys_id');
             }
             $kll['id'] = $kill->getID();
             $kll['kill_detail'] = edkURI::page('kill_detail', $kll['id'], 'kll_id');
@@ -218,5 +220,4 @@ class MostExpensive
     {
         return number_format($num, $dec, '.', '');
     }
-
 }

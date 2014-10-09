@@ -7,15 +7,15 @@
       <tr class="kb-table-header"><td align="center" class="kb-table-cell">
         {$k.classlink}&nbsp;<a class="kb-shipclass" href="{$k.details}">{$k.name|truncate:15}</a>
       </td></tr>
-      <tr class="mostexp-row">
-        <td class="kb-table-cell" onmouseover="javascript:swap('name-{$k.id}-ship','kb-table-row-hover','name-{$k.id}-sys','kb-table-row-hover');" onmouseout="javascript:swap('name-{$k.id}-ship','kb-table-row-odd','name-{$k.id}-sys','kb-table-row-even');" onclick="window.location.href='{$k.kill_detail}';">
+      <tr>
+        <td class="kb-table-cell">
           <table class="mostexp-table-item"><tbody>
-            <tr class="kb-table-row-odd" id="name-{$k.id}-ship">
+            <tr class="kb-table-row-odd" id="name-{$k.id}-ship" onmouseover="javascript:swap('name-{$k.id}-ship','kb-table-row-hover','name-{$k.id}-sys','kb-table-row-hover');" onmouseout="javascript:swap('name-{$k.id}-ship','kb-table-row-odd','name-{$k.id}-sys','kb-table-row-even');" onclick="window.location.href='{$k.kill_detail}';">
               <td class="mostexp-cell-img" rowspan="2">{$k.img}</td>
               <td class="kb-table-cell mostexp-cell-txt" ><strong>{$k.shipname|truncate:15}</strong></td>
             </tr>
             <tr class="kb-table-row-even" id="name-{$k.id}-sys">
-              <td class="mostexp-cell-txt"><strong>{$k.system|truncate:10}</strong><br />
+              <td class="mostexp-cell-txt"><a href="{$k.systemurl}">{$k.system|truncate:10}</a><br />
                 <span class="mostexp-small">
                   {if $k.systemsecurity < 0.05}
                   (<span class="mostexp-nullsec">{$k.systemsecurity|max:0|string_format:"%01.1f"}</span>)

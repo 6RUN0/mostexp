@@ -45,7 +45,7 @@ class MostExpensiveInit
      */
     public static function headers($pHome)
     {
-        $pHome->page->addHeader('<link rel="stylesheet" type="text/css" href="' . KB_HOST . '/mods/mostexp/style.css" />');
+        $pHome->page->addHeader('<link rel="stylesheet" type="text/css" href="' . KB_HOST . '/mods/mostexp/css/style.css" />');
         $pHome->page->addHeader('<script type="text/javascript" src="' . KB_HOST . '/mods/mostexp/script.js"></script>');
     }
 }

@@ -85,4 +85,4 @@
   </table>
 </form>
 <div class="block-header2"></div>
-<div style="text-align: right;">Most Expensive Kills 1.4p3 by <a href="http://babylonknights.com/">Khi3l</a>. Patched by <a href="https://github.com/6RUN0">boris_t</a>.</div> 
+<div class="mostexp-right">Most Expensive Kills by <a href="http://babylonknights.com/">Khi3l</a>.<br/>Fork by <a href="https://github.com/6RUN0">boris_t</a>.<br/>$Id$</div>

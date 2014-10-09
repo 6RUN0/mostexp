@@ -33,7 +33,7 @@ class MostExpensiveInitSettings extends pageAssembly
     {
         $this->page = new Page();
         $this->page->setTitle('Most Expensive Kills');
-        $this->page->addHeader('<link rel="stylesheet" type="text/css" href="' . KB_HOST . '/mods/mostexp/settings.css" />');
+        $this->page->addHeader('<link rel="stylesheet" type="text/css" href="' . KB_HOST . '/mods/mostexp/css/settings.css" />');
         $default_options = array(
             'display' => 'board',
             'period' => '7',
@@ -55,25 +55,25 @@ class MostExpensiveInitSettings extends pageAssembly
             $this->_opt = $_POST['settings'];
             $this->_opt['period'] = $this->_is_natural($this->_opt['period']);
             if (!$this->_opt['period']) {
-                $this->_opt['period'] = '';
+                $this->_opt['period'] = '7';
                 $this->_msg['text'] .= 'Day period is natural number<br />';
                 $this->_msg['period'] = 'mostexp-err';
             }
             $this->_opt['count'] = $this->_is_natural($this->_opt['count']);
             if (!$this->_opt['count']) {
-                $this->_opt['count'] = '';
+                $this->_opt['count'] = '5';
                 $this->_msg['text'] .= 'Kill count is natural number<br />';
                 $this->_msg['count'] = 'mostexp-err';
             }
             $this->_opt['periodpods'] = $this->_is_natural($this->_opt['periodpods']);
             if (!$this->_opt['periodpods']) {
-                $this->_opt['periodpods'] = '';
+                $this->_opt['periodpods'] = '7';
                 $this->_msg['text'] .= 'Pods Day period is natural number<br />';
                 $this->_msg['periodpods'] = 'mostexp-err';
             }
             $this->_opt['countpods'] = $this->_is_natural($this->_opt['countpods']);
             if (!$this->_opt['countpods']) {
-                $this->_opt['countpods'] = '';
+                $this->_opt['countpods'] = '5';
                 $this->_msg['text'] .= 'Pods Counts is natural number<br />';
                 $this->_msg['countpods'] = 'mostexp-err';
             }
@@ -91,7 +91,7 @@ class MostExpensiveInitSettings extends pageAssembly
         global $smarty;
         $smarty->assign('mostexp_options', $this->_opt);
         $smarty->assign('mostexp_msg', $this->_msg);
-        return $smarty->fetch(get_tpl('./mods/mostexp/mostexp_settings'));
+        return $smarty->fetch(get_tpl('./mods/mostexp/settings'));
     }
 
 

@@ -1,3 +1,4 @@
+<!-- $Id$ -->
 <div class="block-header2 mostexp-header">Most expensive <strong>{$displaytype}</strong> for {$displaylist}.</div>
 {if $killlist}
 <table class="kb-table mostexp-table"><tbody><tr>
